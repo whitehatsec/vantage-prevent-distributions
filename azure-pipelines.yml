@@ -1,0 +1,77 @@
+# Download dast-attacker-cli from Lastest CLI build
+# Publish to Releases
+
+trigger:
+- main
+
+variables:
+  - group: IDD
+  - name: System.Debug
+    value: 'true'
+
+resources:
+  pipelines:
+  - pipeline: DastAttackerCli  # Name of the pipeline resource
+    source: dast-attacker-cli  # Name of the pipeline referenced by the pipeline resource
+    trigger:
+      branches:
+      - test-trigger
+      - master
+
+jobs:
+- job: Publish
+  pool:
+    vmImage: ubuntu-latest
+
+  steps:
+    - script: |
+        echo "Group variable: IDD_RELEASE = $(IDD_RELEASE)"
+        echo "Build.BuildId = $(Build.BuildId)"
+        echo "Build.StagingDirectory = $(Build.StagingDirectory)"
+        echo "Build.ArtifactStagingDirectory = $(Build.ArtifactStagingDirectory)"
+        echo "Pipeline.Workspace = $(Pipeline.Workspace)"
+      displayName: 'Echo Group & Pre-Defined Variables'
+    - download: DastAttackerCli
+      artifact: linux
+      patterns: "*.deb"
+      displayName: 'Download CLI Debian Artifact'
+    - download: DastAttackerCli
+      artifact: win
+      patterns: "*.msi"
+      displayName: 'Download CLI Windows Artifact'      
+    - bash: |
+        thisFile=$(ls *.deb)
+        debPkgName=$(basename $thisFile)
+        echo "##vso[task.setvariable variable=debPkgName]$debPkgName"
+        echo "CLI Debian package name: ${debPkgName}"
+      workingDirectory: $(Pipeline.Workspace)/DastAttackerCli/linux
+      displayName: 'Get Debian Package Name'
+    - bash: |
+        cliBuildId=$(echo $(debPkgName) | cut -d . -f3 | cut -d _ -f1)
+        echo "##vso[task.setvariable variable=cliBuildId]$cliBuildId"
+        echo "CLI Build Id ${cliBuildId}"
+      displayName: 'Get CLI Build Id'
+    - bash: |
+        GIT_TAG=${GIT_TAG:-$(IDD_RELEASE).$(cliBuildId)}
+        echo "##vso[task.setvariable variable=GIT_TAG]$GIT_TAG"
+        echo "Tag is ${GIT_TAG}"
+      displayName: 'Generate Tag'
+    - bash: |
+        cd $(Pipeline.Workspace)/DastAttackerCli/linux/
+        mv dast-attacker-cli_*.deb dast-attacker-cli.deb
+      displayName: "Rename Debian Package"
+    - task: GitHubRelease@1
+      displayName: 'Push to Release folder'
+      inputs:
+        gitHubConnection: github.com
+        repositoryName: whitehatsec-innovations/distribution
+        action: create
+        tagSource: userSpecifiedTag
+        target: $(Build.SourceVersion)
+        tag: $(GIT_TAG)
+        addChangeLog: false
+        isPreRelease: true
+        assetUploadMode: replace
+        assets: |
+          $(Pipeline.Workspace)/DastAttackerCli/linux/*
+          $(Pipeline.Workspace)/DastAttackerCli/win/*
