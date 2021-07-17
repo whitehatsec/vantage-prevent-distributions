@@ -1,17 +1,10 @@
 # Download release packages from lastest id-dast build
 # Publish to distribution releases
 
-trigger:
-- main
-
 resources:
   pipelines:
   - pipeline: IDDast  # Name of the pipeline resource
     source: id-dast  # Name of the pipeline referenced by the pipeline resource
-    branch: main
-    trigger:
-      branches:
-      - main
 
 jobs:
 - job: Publish
