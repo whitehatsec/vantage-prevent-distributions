@@ -23,5 +23,5 @@ If you encounter this error:
 
 To install IDD dependencies, simply do:
 ```bash
-apt-get install -f
+apt-get -yf install
 ```
