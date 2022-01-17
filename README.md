@@ -6,12 +6,12 @@ IDD Releases for `Debian/Ubuntu`, `macOS`, and `Windows`.
 ### Debian/Ubuntu
 
 ```bash
-curl -OL https://github.com/whitehatsec-innovations/distribution/releases/latest/download/IDDast.deb
+curl -OL https://github.com/whitehatsec-innovations/distribution/releases/latest/download/VantagePrevent.deb
 ```
 or
 
 ```bash
-wget https://github.com/whitehatsec-innovations/distribution/releases/latest/download/IDDast.deb
+wget https://github.com/whitehatsec-innovations/distribution/releases/latest/download/VantagePrevent.deb
 ```
 Then to install do:
 ```bash
