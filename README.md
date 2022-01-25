@@ -1,5 +1,5 @@
 # Distribution
-IDD Releases for `Debian/Ubuntu`, `macOS`, and `Windows`.
+Vantage Prevent Releases for `Debian/Ubuntu`, `macOS`, and `Windows`.
 
 ## Download Latest Releases
 
