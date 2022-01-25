@@ -3,8 +3,8 @@
 
 resources:
   pipelines:
-  - pipeline: IDDast  # Name of the pipeline resource
-    source: id-dast  # Name of the pipeline referenced by the pipeline resource
+  - pipeline: VantagePrevent  # Name of the pipeline resource
+    source: vantage-prevent  # Name of the pipeline referenced by the pipeline resource
 
 jobs:
 - job: Publish
@@ -12,24 +12,24 @@ jobs:
     vmImage: ubuntu-latest
 
   steps:
-    - download: IDDast
+    - download: VantagePrevent
       artifact: linux
       patterns: "*.deb"
-      displayName: 'Download IDDast Debian Artifact'
-    - download: IDDast
+      displayName: 'Download VantagePrevent Debian Artifact'
+    - download: VantagePrevent
       artifact: darwin
       patterns: "*.pkg"
-      displayName: 'Download IDDast macOS Artifact'
-    - download: IDDast
+      displayName: 'Download VantagePrevent macOS Artifact'
+    - download: VantagePrevent
       artifact: windows
       patterns: "*.msi"
-      displayName: 'Download IDDast Windows Artifact'
+      displayName: 'Download VantagePrevent Windows Artifact'
     - bash: |
         thisFile=$(ls *.deb)
         GIT_TAG=$(dpkg --info $thisFile | grep 'Version:' | sed 's/\WVersion:\W/v/g')
         echo "##vso[task.setvariable variable=GIT_TAG]$GIT_TAG"
         echo "Tag is ${GIT_TAG}"
-      workingDirectory: $(Pipeline.Workspace)/IDDast/linux
+      workingDirectory: $(Pipeline.Workspace)/VantagePrevent/linux
       displayName: 'Generate Tag'
     - task: GitHubRelease@1
       displayName: 'Push to Release folder'
@@ -45,6 +45,6 @@ jobs:
         isPreRelease: false
         assetUploadMode: replace
         assets: |
-          $(Pipeline.Workspace)/IDDast/darwin/*
-          $(Pipeline.Workspace)/IDDast/linux/*
-          $(Pipeline.Workspace)/IDDast/windows/*
+          $(Pipeline.Workspace)/VantagePrevent/darwin/*
+          $(Pipeline.Workspace)/VantagePrevent/linux/*
+          $(Pipeline.Workspace)/VantagePrevent/windows/*
