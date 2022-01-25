@@ -35,7 +35,7 @@ jobs:
       displayName: 'Push to Release folder'
       inputs:
         gitHubConnection: github.com
-        repositoryName: whitehatsec-innovations/distribution
+        repositoryName: whitehatsec/vantage-prevent-distributions
         action: create
         tagSource: userSpecifiedTag
         target: $(Build.SourceVersion)
