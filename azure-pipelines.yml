@@ -38,7 +38,7 @@ jobs:
         repositoryName: whitehatsec-innovations/distribution
         action: create
         tagSource: userSpecifiedTag
-        target: $(Build.SourceVersion)
+        # target: $(Build.SourceVersion)
         tag: $(GIT_TAG)
         title: Release $(GIT_TAG)
         addChangeLog: false
