@@ -32,10 +32,27 @@ jobs:
       workingDirectory: $(Pipeline.Workspace)/VantagePrevent/linux
       displayName: 'Generate Tag'
     - task: GitHubRelease@1
-      displayName: 'Push to Release folder'
+      displayName: 'Push to whitehatsec/vantage-prevent-distributions'
       inputs:
         gitHubConnection: github.com
         repositoryName: whitehatsec/vantage-prevent-distributions
+        action: create
+        tagSource: userSpecifiedTag
+        target: $(Build.SourceVersion)
+        tag: $(GIT_TAG)
+        title: Release $(GIT_TAG)
+        addChangeLog: false
+        isPreRelease: false
+        assetUploadMode: replace
+        assets: |
+          $(Pipeline.Workspace)/VantagePrevent/darwin/*
+          $(Pipeline.Workspace)/VantagePrevent/linux/*
+          $(Pipeline.Workspace)/VantagePrevent/windows/*
+    - task: GitHubRelease@1
+      displayName: 'Push to whitehatsec-innovations/distribution'
+      inputs:
+        gitHubConnection: github.com
+        repositoryName: whitehatsec-innovations/distribution
         action: create
         tagSource: userSpecifiedTag
         target: $(Build.SourceVersion)
