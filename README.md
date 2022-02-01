@@ -1,27 +1,9 @@
-# Distribution
-Vantage Prevent Releases for `Debian/Ubuntu`, `macOS`, and `Windows`.
+# Official Distribution
+Vantage Prevent native desktop installers for `Windows.msi` and `macOS.pgk` are available from this official Distribution Repository under the [Releases](https://github.com/whitehatsec/vantage-prevent-distributions/releases) section. Vantage Prevent only supports native `Linux` installation of `Debian/Ubuntu.deb` via Command Line Interface for CI/CD pipelines.
 
-## Download Latest Releases
-
-### Debian/Ubuntu
-
-```bash
-curl -OL https://github.com/whitehatsec/vantage-prevent-distribution/releases/latest/download/VantagePrevent.deb
+## Product License
+Clients need a product license key in order to operate Vantage Prevent. Please contact NTT Application Security to purchase a license.  
 ```
-or
-
-```bash
-wget https://github.com/whitehatsec-innovations/vantage-prevent-distribution/releases/latest/download/VantagePrevent.deb
-```
-Then to install do:
-```bash
-dpkg -i VantagePrevent.deb
-```
-If you encounter this error:
-
-![image](https://user-images.githubusercontent.com/67141508/128387651-e234c7ca-f8b0-42fb-a319-328236148109.png)
-
-To install Vantage Prevent dependencies, simply do:
-```bash
-apt-get -yf install
+-For clients in EMEA, contact: emeainfo@whitehatsec.com. 
+-For all other inquires, contact: whitehat.contact@whitehatsec.com 
 ```
