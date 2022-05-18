@@ -25,7 +25,7 @@ jobs:
       patterns: "*.msi"
       displayName: 'Download VantagePrevent Windows Artifact'
     - bash: |
-        thisFile=$(ls *.deb)
+        thisFile=$(ls *.deb | head -1)
         GIT_TAG=$(dpkg --info $thisFile | grep 'Version:' | sed 's/\WVersion:\W/v/g')
         echo "##vso[task.setvariable variable=GIT_TAG]$GIT_TAG"
         echo "Tag is ${GIT_TAG}"
