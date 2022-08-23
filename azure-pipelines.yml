@@ -53,6 +53,7 @@ jobs:
         mkdir -p ./dist/docker
         cp $(Pipeline.Workspace)/VantagePrevent/linux/VantagePrevent-Ubuntu-20_04.deb ./dist/docker
         docker build -t $(imageName):${GIT_TAG} -t $(imageName):latest --build-arg DEB_NAME=VantagePrevent-Ubuntu-20_04.deb --no-cache -f ./docker/Ubuntu-20_04.Dockerfile dist/docker
+        rm -rf ./dist/docker
       displayName: 'Build Docker Image'
       timeoutInMinutes: 90
     - task: Docker@2
