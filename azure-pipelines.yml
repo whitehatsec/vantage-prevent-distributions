@@ -60,12 +60,12 @@ jobs:
       displayName: 'Login to Docker Hub'
       inputs:
         command: login
-        containerRegistry: dockerhub
+        containerRegistry: dockerhubpublic
     - task: Docker@2
       displayName: 'Push image to Docker Hub'
       inputs:
         command: push
-        containerRegistry: dockerhub
+        containerRegistry: dockerhubpublic
         repository: $(imageName)
         tags: |
           latest
