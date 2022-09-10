@@ -1,0 +1,5 @@
+.git* export-ignore
+docker export-ignore
+docker/Ubuntu-20_04.Dockerfile export-ignore
+azure-pipelines.yml export-ignore
+README.md export-ignore
