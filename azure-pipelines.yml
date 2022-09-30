@@ -69,4 +69,4 @@ jobs:
         repository: $(imageName)
         tags: |
           latest
-          $(release_version)
+          ${GIT_TAG}
