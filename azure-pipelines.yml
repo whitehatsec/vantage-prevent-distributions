@@ -3,8 +3,8 @@
 
 resources:
   pipelines:
-  - pipeline: VantagePrevent  # Name of the pipeline resource
-    source: vantage-prevent  # Name of the pipeline referenced by the pipeline resource
+  - pipeline: VantagePrevent                      # Name of the pipeline resource
+    source: whitehatsec.vantage-prevent-fastdast  # Name of the pipeline referenced by the pipeline resource
 
 jobs:
 - job: Publish
